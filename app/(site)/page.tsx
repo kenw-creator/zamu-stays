@@ -28,17 +28,19 @@ export default async function HomePage() {
   ]);
 
   const allMedia = (media ?? []) as ZamuMedia[];
-  const heroImage =
-    allMedia.find((m) => m.media_type === "image" && m.category === "exterior") ??
-    allMedia.find((m) => m.media_type === "image") ??
-    null;
+
+  // Prefer exterior shots first for the hero mosaic, then fill with anything else
+  const exteriorFirst = [
+    ...allMedia.filter((m) => m.category === "exterior"),
+    ...allMedia.filter((m) => m.category !== "exterior"),
+  ];
 
   return (
     <>
-      <Hero heroImage={heroImage} />
+      <Hero photos={exteriorFirst} />
+      <GallerySection media={allMedia} />
       <AboutSection />
       <AmenitiesSection />
-      <GallerySection media={allMedia} />
       <ReviewsSection reviews={(reviews ?? []) as ZamuReview[]} />
       <LocationSection />
       <ContactSection />
