@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+:root {
+  /* Base */
+  --ink: #17140f;
+  --ink-soft: #2b241b;
+  --paper: #f4eee0;
+  --paper-dim: #e9e0cc;
+
+  /* Accent — brass/gold pulled from the pendant lighting in the property photos */
+  --brass: #d3a44a;
+  --brass-deep: #a97c2f;
+
+  /* Secondary — clay, used sparingly */
+  --clay: #96502f;
+
+  /* Tertiary — sage, from the plants in the living space */
+  --sage: #6f7c5c;
+
+  --line: rgba(23, 20, 15, 0.12);
+  --line-on-dark: rgba(244, 238, 224, 0.16);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-paper: var(--paper);
+  --color-paper-dim: var(--paper-dim);
+  --color-brass: var(--brass);
+  --color-brass-deep: var(--brass-deep);
+  --color-clay: var(--clay);
+  --color-sage: var(--sage);
+
+  --font-display: var(--font-bitter);
+  --font-body: var(--font-work-sans);
+  --font-mono: var(--font-jetbrains);
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+.font-mono-route {
+  font-family: var(--font-mono), monospace;
+  letter-spacing: 0.06em;
+}
+
+/* Signature element: the route strip — a dashed road line with distance
+   markers, used as a section-divider motif throughout the site. */
+.route-strip {
+  position: relative;
+  height: 2px;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--brass) 0px,
+    var(--brass) 14px,
+    transparent 14px,
+    transparent 26px
+  );
+  opacity: 0.55;
+}
+
+.route-strip::before,
+.route-strip::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--brass);
+  transform: translateY(-50%);
+}
+
+.route-strip::before {
+  left: 0;
+}
+
+.route-strip::after {
+  right: 0;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
